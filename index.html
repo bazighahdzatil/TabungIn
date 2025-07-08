@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TabungIn</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page">
+    <div class="form-container">
+        <div class="logo-container">
+            <h1>💰 TabungIn</h1>
+            <p>Aplikasi Menabung Digital Terpercaya</p>
+        </div>
+        
+        <h2>Login ke Akun Anda</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Email" required>
+                <span class="input-icon">📧</span>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" required>
+                <span class="input-icon">🔒</span>
+            </div>
+            
+            <button type="submit" class="btn-primary">
+                <span>Masuk</span>
+                <div class="btn-loader" style="display: none;"></div>
+            </button>
+            
+            <div class="form-links">
+                <p><a href="forgot.html">Lupa Password?</a></p>
+                <p>Belum punya akun? <a href="register.html">Daftar Sekarang</a></p>
+            </div>
+        </form>
+    </div>
+    
+    <script src="js/auth.js"></script>
+</body>
+</html>

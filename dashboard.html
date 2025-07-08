@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - TabungIn</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>💰 TabungIn</h1>
+            <div class="user-info">
+                <span id="userName">Loading...</span>
+                <button class="btn-logout" onclick="logout()">Keluar</button>
+            </div>
+        </div>
+        
+        <nav>
+            <a href="#saldo" class="nav-link active">💳 Saldo</a>
+            <a href="#pemasukan" class="nav-link">📥 Pemasukan</a>
+            <a href="#pengeluaran" class="nav-link">📤 Pengeluaran</a>
+            <a href="#tabungan" class="nav-link">💰 Tabungan</a> 
+            <a href="#laporan" class="nav-link">📊 Laporan</a>
+            <a href="#akun" class="nav-link">⚙️ Akun</a>
+            <a href="#withdraw" class="nav-link">🔻 Withdraw</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="saldo" class="section-active">
+            <div class="saldo-container">
+                <h2>💳 Saldo Anda</h2>
+                <div class="saldo-card">
+                    <div class="saldo-info">
+                        <h3>Total Saldo</h3>
+                        <div class="saldo-amount" id="totalSaldo">Rp 0</div>
+                    </div>
+                    <div class="saldo-details">
+                        <div class="detail-item">
+                            <span class="label">Total Pemasukan:</span>
+                            <span class="value income" id="totalPemasukan">Rp 0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Total Pengeluaran:</span>
+                            <span class="value expense" id="totalPengeluaran">Rp 0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Total Tabungan:</span>
+                            <span class="value saving" id="totalTabungan">Rp 0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Saldo Tersedia:</span>
+                            <span class="value available" id="saldoTersedia">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <button class="btn-action" onclick="window.location.href='catat-pemasukan-transfer.html'">
+                        <span>📥</span>
+                        Tambah Pemasukan (Menabung)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="pemasukan">
+            <h2>📥 Riwayat Pemasukan</h2>
+            <div class="recent-transactions">
+                <h3>Daftar Pemasukan</h3>
+                <div id="listPemasukan"></div>
+            </div>
+        </section>
+
+        <section id="pengeluaran">
+            <h2>📤 Catat Pengeluaran</h2>
+            <form id="pengeluaranForm">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Tanggal</label>
+                        <input type="date" id="tanggalPengeluaran" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Kategori</label>
+                        <select id="kategoriPengeluaran" required>
+                            <option value="" selected disabled>Pilih Kategori</option>
+                            <option value="Makanan">🍕 Makanan</option>
+                            <option value="Transportasi">🚗 Transportasi</option>
+                            <option value="Hiburan">🎮 Hiburan</option>
+                            <option value="Belanja">🛍️ Belanja</option>
+                            <option value="Kesehatan">🏥 Kesehatan</option>
+                            <option value="Pendidikan">📚 Pendidikan</option>
+                            <option value="Tagihan">💳 Tagihan</option>
+                            <option value="Lainnya">📋 Lainnya</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group full-width">
+                        <label>Deskripsi</label>
+                        <input type="text" id="deskripsiPengeluaran" placeholder="Contoh: Makan siang" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Jumlah (Rp)</label>
+                        <input type="number" id="jumlahPengeluaran" placeholder="0" min="1" required>
+                    </div>
+                    
+                    <div class="input-group full-width">
+                        <label>Catatan (Opsional)</label>
+                        <textarea id="catatanPengeluaran" placeholder="Tambahkan catatan..."></textarea>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    <span>💾 Simpan Pengeluaran</span>
+                </button>
+            </form>
+            
+            <div class="recent-transactions">
+                <h3>Pengeluaran Terbaru</h3>
+                <div id="listPengeluaran"></div>
+            </div>
+        </section>
+
+        <section id="tabungan">
+            <h2>💰 Kelola Tabungan</h2>
+            
+            <div class="tabungan-summary">
+                <div class="summary-card">
+                    <h3>Total Tabungan</h3>
+                    <div class="amount" id="totalTabunganDisplay">Rp 0</div>
+                </div>
+            </div>
+            
+            <form id="tabunganForm">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Pilih Target (Opsional)</label>
+                        <select id="pilihTarget">
+                            <option value="">-- Buat Target Baru --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Nama Target</label>
+                        <input type="text" id="namaTarget" placeholder="Contoh: Liburan ke Bali" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Target Nominal (Rp)</label>
+                        <input type="number" id="nominalTarget" placeholder="0" min="1" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Jumlah Nabung (Rp)</label>
+                        <input type="number" id="jumlahNabung" placeholder="0" min="1" required>
+                    </div>
+                    
+                    <div class="input-group full-width">
+                        <label>Metode Menabung</label>
+                        <select id="metodeTabungan" required>
+                            <option value="">Pilih Metode</option>
+                            <option value="tunai">💵 Tunai</option>
+                            <option value="transfer">🏦 Transfer Bank</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="transferSection" style="display: none;">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Bank Tujuan (Menabung)</label>
+                            <select id="bankTujuan" required>
+                                <option value="">Pilih Bank</option>
+                                <option value="bca">BCA</option>
+                                <option value="mandiri">Mandiri</option>
+                                <option value="bni">BNI</option>
+                                <option value="bri">BRI</option>
+                                <option value="cimb">CIMB Niaga</option>
+                                <option value="danamon">Danamon</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Nomor Rekening</label>
+                            <input type="text" id="nomorRekening" placeholder="Nomor rekening tujuan">
+                        </div>
+                        
+                        <div class="input-group full-width">
+                            <label>Upload Bukti Transfer (Tabungan)</label>
+                            <input type="file" id="buktiTransferTabungan" accept="image/*" required>
+                            <div class="file-preview" id="previewBukti"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    <span>💰 Simpan Tabungan</span>
+                </button>
+            </form>
+            
+            <div class="tabungan-targets">
+                <h3>Target Tabungan</h3>
+                <div id="daftarTabungan"></div>
+            </div>
+        </section>
+
+        <section id="transfer">
+            <h2>💸 Transfer Uang (Keluar)</h2>
+            
+            <div class="transfer-info">
+                <div class="info-card">
+                    <h3>Saldo Tersedia</h3>
+                    <div class="amount" id="saldoTransfer">Rp 0</div>
+                </div>
+            </div>
+            
+            <form id="transferForm">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Bank Tujuan Transfer Keluar</label>
+                        <select id="bankTujuanTransferKeluar" required>
+                            <option value="">Pilih Bank</option>
+                            <option value="bca">BCA</option>
+                            <option value="mandiri">Mandiri</option>
+                            <option value="bni">BNI</option>
+                            <option value="bri">BRI</option>
+                            <option value="cimb">CIMB Niaga</option>
+                            <option value="danamon">Danamon</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Nomor Rekening Tujuan</label>
+                        <input type="text" id="nomorRekeningTransferKeluar" placeholder="Nomor rekening tujuan" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Nama Penerima</label>
+                        <input type="text" id="namaPenerimaTransferKeluar" placeholder="Nama lengkap penerima" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Jumlah Transfer (Rp)</label>
+                        <input type="number" id="jumlahTransferKeluar" placeholder="0" min="1" required>
+                    </div>
+                    
+                    <div class="input-group full-width">
+                        <label>Keterangan</label>
+                        <input type="text" id="keteranganTransferKeluar" placeholder="Keterangan transfer" required>
+                    </div>
+                    
+                    </div>
+                
+                <button type="submit" class="btn-primary">
+                    <span>💸 Kirim Transfer</span>
+                </button>
+            </form>
+            
+            <div class="recent-transactions">
+                <h3>Riwayat Transfer Keluar</h3>
+                <div id="listTransfer"></div>
+            </div>
+        </section>
+
+        <section id="laporan">
+            <h2>📊 Laporan Keuangan</h2>
+            
+            <div class="laporan-summary">
+                <div class="summary-grid">
+                    <div class="summary-item income">
+                        <h3>Total Pemasukan</h3>
+                        <div class="amount" id="laporanPemasukan">Rp 0</div>
+                    </div>
+                    <div class="summary-item expense">
+                        <h3>Total Pengeluaran</h3>
+                        <div class="amount" id="laporanPengeluaran">Rp 0</div>
+                    </div>
+                    <div class="summary-item saving">
+                        <h3>Total Tabungan</h3>
+                        <div class="amount" id="laporanTabungan">Rp 0</div>
+                    </div>
+                    <div class="summary-item transfer">
+                        <h3>Total Transfer Keluar</h3>
+                        <div class="amount" id="laporanTransfer">Rp 0</div>
+                    </div>
+                    <div class="summary-item withdraw">
+                        <h3>Total Withdraw</h3>
+                        <div class="amount" id="laporanWithdraw">Rp 0</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <button onclick="toggleGrafik()" class="btn-secondary">
+                    📈 Tampilkan/Sembunyikan Grafik
+                </button>
+                <div id="grafikContainer" style="display:none;">
+                    <canvas id="grafikKategori" width="300" height="200"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="akun">
+            <h2>⚙️ Pengaturan Akun</h2>
+            
+            <div class="profile-section">
+                <h3>Informasi Profil</h3>
+                <form id="updateProfileForm">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" id="updateNama" placeholder="Nama lengkap" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" id="updateEmail" placeholder="Email" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Nomor Telepon</label>
+                            <input type="tel" id="updateTelepon" placeholder="Nomor telepon" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <span>💾 Update Profil</span>
+                    </button>
+                </form>
+            </div>
+            
+            <div class="security-section">
+                <h3>Keamanan</h3>
+                <form id="changePasswordForm">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Password Lama</label>
+                            <input type="password" id="oldPassword" placeholder="Password lama" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Password Baru</label>
+                            <input type="password" id="newPassword" placeholder="Password baru" minlength="6" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Konfirmasi Password Baru</label>
+                            <input type="password" id="confirmNewPassword" placeholder="Konfirmasi password baru" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <span>🔒 Ubah Password</span>
+                    </button>
+                </form>
+            </div>
+            
+            <div class="danger-zone">
+                <h3>Zona Bahaya</h3>
+                <div class="danger-actions">
+                    <button class="btn-danger" onclick="resetData()">
+                        🗑️ Reset Semua Data
+                    </button>
+                    <button class="btn-danger" onclick="deleteAccount()">
+                        ❌ Hapus Akun
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="withdraw">
+            <h2>💸 Tarik Dana ke Rekening Anda</h2>
+            <form id="withdrawForm">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Jumlah Withdraw (Rp)</label>
+                        <input type="number" id="jumlahWithdraw" min="1" required>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Catatan / Tujuan Penarikan</label>
+                        <input type="text" id="catatanWithdraw" placeholder="Misal: ke rekening BCA pribadi" />
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">🔻 Tarik Dana</button>
+            </form>
+
+            <div class="recent-transactions">
+                <h3>Riwayat Withdraw</h3>
+                <div id="riwayatWithdraw"></div>
+            </div>
+        </section>
+        
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/script.js"></script> <script src="js/saldo.js"></script> <script src="js/pemasukan.js"></script> <script src="js/pengeluaran.js"></script>
+    <script src="js/tabungan.js"></script>
+    <script src="js/withdraw.js"></script>
+    <script src="js/laporan.js"></script>
+    <script src="js/akun.js"></script>
+    
+    </body>
+</html>

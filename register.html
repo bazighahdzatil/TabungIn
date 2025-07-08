@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar - TabungIn</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="register-page">
+    <div class="form-container">
+        <div class="logo-container">
+            <h1>💰 TabungIn</h1>
+            <p>Mulai Perjalanan Menabung Anda</p>
+        </div>
+        
+        <h2>Daftar Akun Baru</h2>
+        <form id="registerForm">
+            <div class="input-group">
+                <input type="text" id="nama" placeholder="Nama Lengkap" required>
+                <span class="input-icon">👤</span>
+            </div>
+            
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Email" required>
+                <span class="input-icon">📧</span>
+            </div>
+            
+            <div class="input-group">
+                <input type="tel" id="telepon" placeholder="Nomor Telepon" required>
+                <span class="input-icon">📱</span>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password (min. 6 karakter)" required minlength="6">
+                <span class="input-icon">🔒</span>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="confirmPassword" placeholder="Konfirmasi Password" required>
+                <span class="input-icon">🔒</span>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="agreement" required>
+                <label for="agreement">Saya setuju dengan <a href="#">syarat dan ketentuan</a></label>
+            </div>
+            
+            <button type="submit" class="btn-primary">
+                <span>Daftar Sekarang</span>
+                <div class="btn-loader" style="display: none;"></div>
+            </button>
+            
+            <div class="form-links">
+                <p>Sudah punya akun? <a href="index.html">Login</a></p>
+            </div>
+        </form>
+    </div>
+    
+    <script src="js/auth.js"></script>
+</body>
+</html>

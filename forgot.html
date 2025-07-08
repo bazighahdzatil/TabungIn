@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lupa Password - Tabungin</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page">
+  <div class="form-container">
+    <h2>Lupa Password</h2>
+    <form id="forgotForm">
+      <input type="email" placeholder="Masukkan Email Anda" required />
+      <button type="submit">Kirim</button>
+      <p><a href="index.html">← Kembali ke Login</a></p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("forgotForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = this.querySelector("input").value;
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user && user.email === email) {
+        alert("Password Anda adalah: " + user.password);
+      } else {
+        alert("Email tidak ditemukan!");
+      }
+    });
+  </script>
+</body>
+</html>
